@@ -91,17 +91,18 @@ jobs:
         run: |
           source ./buildenv.sh z3s
           ./scripts/internal/update_prebuilt_blobs.sh ${{ matrix.path }}
-          echo "PDA_BUILD=$(cat ./${{ matrix.path }}/.current | cut -d "/" -f 1)" >> $GITHUB_ENV
+          echo "PDA_BUILD=$(cat ./${{ matrix.path }}/.current | cut -d '/' -f 1)" >> $GITHUB_ENV
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.MY_PAT }}  3
           add-paths: |
             ${{ matrix.path }}
           commit-message: '${{ matrix.path }}: update blobs to ${{ env.PDA_BUILD }}'
           committer: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
           author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
-          branch: '${{ matrix.path }}'
+          branch: 'update/${{ matrix.path }}'
           delete-branch: true
           title: 'Update ${{ matrix.path }} blobs to ${{ env.PDA_BUILD }}'
           body: ''
