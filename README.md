@@ -91,6 +91,7 @@ This project is licensed under the terms of the [GNU General Public License v3.0
 - **[ExtremeXT](https://github.com/ExtremeXT)** for helping me fix bugs, supporting me and most importantly letting me keep his brand image.
 - **[ricci205GTI](https://github.com/ricci205GTI)** for fixing motion photo and help with the x1s.
 - **[immohammeeed](https://github.com/immohammeeed)** for creating the website for this project.
+- **[GhasemzadehFard-Dev](https://github.com/GhasemzadehFard-Dev)** for fixing reboot on call hang-up and RAM Plus issues on the r8s
 - More that I can't remember right now and will have to be added in the future
 
 ## Original ExtremeROM credits:
