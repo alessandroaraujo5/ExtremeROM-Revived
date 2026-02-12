@@ -90,6 +90,9 @@ case "$1" in
     "prebuilts/samsung/p3sxxx")
         FIRMWARE="SM-G998B/AUT/352731458300849"
         ;;
+    "prebuilts/samsung/t2sxxx")
+        FIRMWARE="SM-G996B/AUT/355399273736683"
+        ;;
     "prebuilts/samsung/pa3qzcx")
         FIRMWARE="SM-S9380/CHC/355534491000674"
         ;;
@@ -141,4 +144,6 @@ done
 
 cp -a "$FW_DIR/${MODEL}_${REGION}/.extracted" "$MODULE/.current"
 
-exit 0
+exit 0        FIRMWARE="SM-G998B/AUT/352731458300849"
+        ;;
+    "prebuil
