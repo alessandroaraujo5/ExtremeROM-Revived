@@ -5,6 +5,7 @@
 - Add logo and fix bugs in the updater app
 - Add RAM Plus flag for r8s
 - Fix LED COVER SERVICE
+- Remove Enhanced Open option from hotspot settings as it caused issues on exynos 990 devices
 
 # 3.0.0
 - Switch to S25FE base
