@@ -144,6 +144,4 @@ done
 
 cp -a "$FW_DIR/${MODEL}_${REGION}/.extracted" "$MODULE/.current"
 
-exit 0        FIRMWARE="SM-G998B/AUT/352731458300849"
-        ;;
-    "prebuil
+exit 0
