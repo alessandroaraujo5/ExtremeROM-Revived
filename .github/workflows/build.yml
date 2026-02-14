@@ -156,13 +156,13 @@ jobs:
                 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
                 git add $XML_FILE
-                git commit -m "Update ${{ matrix.target }} to $VERSION" || echo "No changes to commit"
+                git commit -m "updater: ${{ matrix.target }}.xml: Update to $VERSION" || echo "No changes to commit"
                 git pull --rebase origin main
                 git push origin main
 
                 cd ..
               else
-                echo "Debug build selected — skipping XML generation."
+                echo "Debug build selected - skipping XML generation."
               fi
             else
               echo "No ZIP files found to upload."
