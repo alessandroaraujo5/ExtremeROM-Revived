@@ -15,6 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
 
     strategy:
       fail-fast: false
@@ -88,7 +90,7 @@ jobs:
         run: |
           source ./buildenv.sh ${{ matrix.target }}
           ./scripts/extract_fw.sh --force --ignore-source
-      
+
       - name: Add swapspace
         uses: thejerrybao/setup-swap-space@v1
         with:
@@ -119,7 +121,6 @@ jobs:
 
               RESPONSE=$(curl -s -T "$file" -u :$PIXELDRAIN_API_KEY https://pixeldrain.com/api/file/)
               FILE_ID=$(echo $RESPONSE | jq -r '.id')
-
               DOWNLOAD_URL="https://pixeldrain.com/api/file/$FILE_ID?download"
 
               echo ""
@@ -137,33 +138,32 @@ jobs:
                 git checkout main
 
                 mkdir -p updater
+                XML_FILE="updater/${{ matrix.target }}.xml"
 
-                cat > updater/${{ matrix.target }}.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<roms>
-    <rom channel="stable">
-        <version>$VERSION</version>
-        <date>$BUILD_DATE</date>
-        <filename>$FILE_NAME</filename>
-        <url>$DOWNLOAD_URL</url>
-        <md5>$FILE_MD5</md5>
-        <size>$FILE_SIZE</size>
-    </rom>
-</roms>
-EOF
+                echo '<?xml version="1.0" encoding="UTF-8"?>' > $XML_FILE
+                echo '<roms>' >> $XML_FILE
+                echo '    <rom channel="stable">' >> $XML_FILE
+                echo "        <version>$VERSION</version>" >> $XML_FILE
+                echo "        <date>$BUILD_DATE</date>" >> $XML_FILE
+                echo "        <filename>$FILE_NAME</filename>" >> $XML_FILE
+                echo "        <url>$DOWNLOAD_URL</url>" >> $XML_FILE
+                echo "        <md5>$FILE_MD5</md5>" >> $XML_FILE
+                echo "        <size>$FILE_SIZE</size>" >> $XML_FILE
+                echo '    </rom>' >> $XML_FILE
+                echo '</roms>' >> $XML_FILE
 
                 git config user.name "github-actions[bot]"
                 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-                git add updater/${{ matrix.target }}.xml
+                git add $XML_FILE
                 git commit -m "Update ${{ matrix.target }} to $VERSION" || echo "No changes to commit"
+                git pull --rebase origin main
                 git push origin main
 
                 cd ..
               else
                 echo "Debug build selected — skipping XML generation."
               fi
-
             else
               echo "No ZIP files found to upload."
             fi
