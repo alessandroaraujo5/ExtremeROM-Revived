@@ -3,7 +3,7 @@
 # 3.0.1
 - Fixed reboot on call end (thx @GhasemzadehFard-Dev)
 - Add logo and fix bugs in the updater app
-- Add RAM Plus flag for r8s
+- Add and enable native smart call and hiya globally throughout the ROM
 - Fix LED COVER SERVICE
 - Remove Enhanced Open option from hotspot settings as it caused issues on exynos 990 devices
 
