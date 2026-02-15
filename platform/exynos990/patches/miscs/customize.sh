@@ -13,6 +13,12 @@ LOG_STEP_IN "- Enabling FS Verity"
 SET_PROP "vendor" "ro.apk_verity.mode" "2"
 LOG_STEP_OUT
 
+LOG_STEP_IN "- Enabling ZRAM Configuration"
+SET_PROP "vendor" "ro.config.zram.enabled" "true"
+SET_PROP "vendor" "ro.zram.mark_idle_delay_mins" "60"
+SET_PROP "vendor" "ro.zram.first_wb_delay_mins" "1440"
+LOG_STEP_OUT
+
 LOG_STEP_IN "- Setting SF flags"
 SET_PROP "vendor" "debug.sf.latch_unsignaled" "1"
 SET_PROP "vendor" "debug.sf.high_fps_late_app_phase_offset_ns" "0"
@@ -51,6 +57,14 @@ sed -i "${LINE}s/,fileencryption=ice//g" "$WORK_DIR/vendor/etc/fstab.exynos990"
 
 # ODE
 sed -i -e "/ODE/d" -e "/keydata/d" -e "/keyrefuge/d" "$WORK_DIR/vendor/etc/fstab.exynos990"
+
+LOG_STEP_IN "- Injecting ZRAM for RAM Plus"
+# Check if zram is already defined to avoid duplicates
+if ! grep -q "zram0" "$WORK_DIR/vendor/etc/fstab.exynos990"; then
+    echo "" >> "$WORK_DIR/vendor/etc/fstab.exynos990"
+    echo "/dev/block/zram0                                none                swap      defaults,zramsize=75%    0 0" >> "$WORK_DIR/vendor/etc/fstab.exynos990"
+fi
+LOG_STEP_OUT
 
 # For some reason we are missing 2 permissions here: android.hardware.security.model.compatible and android.software.controls
 # First one is related to encryption and second one to SmartThings Device Control
