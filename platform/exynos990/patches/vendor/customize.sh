@@ -17,11 +17,16 @@ do
     DELETE_FROM_WORK_DIR "vendor" "$blob"
 done
 
-ADD_TO_WORK_DIR "p3sxxx" "vendor" "bin/hw/vendor.samsung.hardware.biometrics.face@3.0-service"
-ADD_TO_WORK_DIR "p3sxxx" "vendor" "bin/hw/vendor.samsung.hardware.vibrator-service"
-ADD_TO_WORK_DIR "p3sxxx" "vendor" "lib64"
-ADD_TO_WORK_DIR "p3sxxx" "vendor" "etc/init"
-ADD_TO_WORK_DIR "p3sxxx" "vendor" "etc/vintf"
+# Update Vibrator/RIL/Face/WPA HALs
+# We exclude r8s (S20 FE Exynos) to maintain stability and fix Issue #70
+if [[ "$TARGET_CODENAME" != "r8s" ]]; then
+    ADD_TO_WORK_DIR "p3sxxx" "vendor" "bin/hw/vendor.samsung.hardware.biometrics.face@3.0-service"
+    ADD_TO_WORK_DIR "p3sxxx" "vendor" "bin/hw/vendor.samsung.hardware.vibrator-service"
+    ADD_TO_WORK_DIR "p3sxxx" "vendor" "lib64"
+    ADD_TO_WORK_DIR "p3sxxx" "vendor" "etc/init"
+    ADD_TO_WORK_DIR "p3sxxx" "vendor" "etc/vintf"
+    ADD_TO_WORK_DIR "p3sxxx" "vendor" "bin/hw/wpa_supplicant"
+fi
 
 # WPA Supplicant HAL
 # We exclude r8s (S20 FE Exynos) to fix Issue #70 (Kernel Panic on Termux termination)
