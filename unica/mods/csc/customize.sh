@@ -48,6 +48,7 @@ while read -r FILE; do
         SET_CSC_FEATURE_CONFIG "CscFeature_Contact_EnableSmartCall" "TRUE"
         SET_CSC_FEATURE_CONFIG "CscFeature_Setting_ConfigOperatorCallService" "TRUE"
         SET_CSC_FEATURE_CONFIG "CscFeature_Common_ConfigHiyaService" "TRUE"
+        SET_CSC_FEATURE_CONFIG "CscFeature_Common_SupportRamPlus" "TRUE"
         LOG_STEP_OUT
 
         LOG "- Encoding $FILE"
