@@ -4,7 +4,6 @@
 - Fixed reboot on call end (thx @GhasemzadehFard-Dev)
 - Add logo and fix bugs in the updater app
 - Add and enable native smart call and hiya globally throughout the ROM
-- Fix LED COVER SERVICE
 - Remove Enhanced Open option from hotspot settings as it caused issues on exynos 990 devices
 
 # 3.0.0
